@@ -16,7 +16,7 @@ I used SQL queries to analyze the data and returned the following:
 *	total claim by zip code
 
 I made extensive use of the following functions:
-*	JOIN
+*	JOINS
 *	INNER QUERIES
 *	WINDOW FUNCTIONS
 * AGGREGATE FUNCTIONS
@@ -32,16 +32,27 @@ https://public.tableau.com/views/HCAHPS_Patient_Satisfaction/HCAHPSDashboard?:la
 
 The data was obtained from the Centers for Medicare & Medicaid Services.
 
-I used SQL queries to clean and prepare the data for visualizatio by creating a single table with all values needed for analysis.
+I used SQL queries to clean and prepare the data for visualization by creating a single table with all values needed for analysis.
 
 I made extensive use of the following functions:
 *	LPAD
 *	to_date
-*	JOIN
+*	JOINS
 *	WINDOW FUNCTIONS
 *	COMMON TABLE EXPRESSION
 
+#### Flu Shot Data Preparation PROJECT
 
+Using data from Synthea, I analyzed data pertaining to flu shots in a healthcare system for a dashboard that be found at the following link:
+
+https://public.tableau.com/views/FluShotDashboard_17188300872990/FluShotAnalysis?:language=en-US&publish=yes&:sid=&:display_count=n&:origin=viz_share_link
+
+I used SQL queries to prepare the data for visualization by creating a single table with all values needed for analysis.
+
+I made extensive use of the following functions:
+*	JOINS
+*	COMMON TABLE EXPRESSION
+*	INNER QUERIES
 
 #### REFERENCES
 Jason Walonoski, Mark Kramer, Joseph Nichols, Andre Quina, Chris Moesel, Dylan Hall, Carlton Duffett, Kudakwashe Dube, Thomas Gallagher, Scott McLachlan, Synthea: An approach, method, and software mechanism for generating synthetic patients and the synthetic electronic health care record, Journal of the American Medical Informatics Association, Volume 25, Issue 3, March 2018, Pages 230–238, https://doi.org/10.1093/jamia/ocx079
