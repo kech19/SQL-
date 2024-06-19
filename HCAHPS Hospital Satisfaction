@@ -1,0 +1,57 @@
+CREATE TABLE hospital_beds
+(
+     provider_ccn integer
+    ,hospital_name character varying(255)
+    ,fiscal_year_begin_date character varying(10)
+    ,fiscal_year_end_date character varying(10)
+    ,number_of_beds integer
+);
+
+CREATE TABLE HCAHPS_data
+(
+    facility_id character varying(10),
+    facility_name character varying(255),
+    address character varying(255),
+    city character varying(50),
+    state character varying(2),
+    zip_code character varying(10),
+    county_or_parish character varying(50),
+    telephone_number character varying(20),
+    hcahps_measure_id character varying(255),
+    hcahps_question character varying(255),
+    hcahps_answer_description character varying(255),
+    hcahps_answer_percent integer,
+    num_completed_surveys integer,
+    survey_response_rate_percent integer,
+    start_date character varying(10),
+    end_date character varying(10)
+);
+
+
+WITH  hospital_beds_prep AS
+(
+SELECT
+  LPAD(CAST(provider_ccn AS text), 6, '0') AS provider_ccn,
+  hospital_name,
+  to_date (fiscal_year_begin_date, 'MM/DD/YYYY') AS fiscal_year_begin_date,
+  to_date (fiscal_year_end_date, 'MM/DD/YYYY') AS fiscal_year_end_date,
+  ROW_NUMBER() OVER (PARTITION BY provider_ccn ORDER BY to_date (fiscal_year_end_date, 'MM/DD/YYYY') DESC) AS nth_row,
+  number_of_beds
+FROM
+  hospital_beds
+)
+
+SELECT 
+	LPAD(CAST(facility_id AS text), 6, '0') AS provider_ccn,
+	to_date (start_date, 'MM/DD/YYYY') AS start_date,
+    to_date (end_date, 'MM/DD/YYYY') AS end_date,   
+    * 
+FROM 
+	hcahps_data AS hcahps 
+LEFT JOIN 
+    hospital_beds_prep AS prep 
+ON 
+	h.LPAD(CAST(provider_ccn AS text), 6, '0') = prep.provider_ccn 
+AND 
+	prep.nth_row = 1;
+
