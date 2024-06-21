@@ -1,0 +1,147 @@
+-- CREATE DATABASE
+CREATE DATABASE company_layoffs;
+
+-- Create table for storing layoffs information
+CREATE TABLE layoffs (
+    company VARCHAR(255) PRIMARY KEY,
+    location VARCHAR(255),
+    industry VARCHAR(255),
+	total_laid_off INTEGER,
+	percentage_laid_off NUMERIC,
+	date DATE,
+	stage VARCHAR(255),
+	country VARCHAR(255), 
+	funds_raised_millions BIGINT	
+);
+
+SELECT * FROM layoffs;
+
+-- Identifying layoffs per location
+SELECT 
+	location, 
+	SUM(total_laid_off) AS overall_laid_off
+FROM 
+	layoffs
+GROUP BY 
+	location
+ORDER BY 
+	SUM(total_laid_off) DESC;
+
+-- Top 10 companies with most total layoffs
+SELECT 
+	company, 
+	SUM(total_laid_off) AS overall_laid_off
+FROM 
+	layoffs
+GROUP BY 
+	company
+ORDER BY 
+	SUM(total_laid_off) DESC
+LIMIT 10;
+
+-- Identifying range of percentage of layoffs 
+SELECT 
+	MAX(percentage_laid_off),  
+	MIN(percentage_laid_off)
+FROM 
+	layoffs
+WHERE  
+	percentage_laid_off IS NOT NULL;
+
+-- Identifying layoffs per industry
+SELECT 
+	industry, 
+	SUM(total_laid_off) AS overall_laid_off
+FROM 
+	layoffs
+GROUP BY 
+	industry
+ORDER BY 
+	SUM(total_laid_off) DESC;
+
+-- Identifying layoffs per stage
+SELECT 
+	stage, 
+	SUM(total_laid_off) AS overall_laid_off
+FROM 
+	layoffs
+GROUP BY 
+	stage
+ORDER BY 
+	SUM(total_laid_off) DESC;
+
+--Companies with 100 percent employees laid off
+SELECT *
+FROM 
+	layoffs
+WHERE  
+	percentage_laid_off = 1;
+
+-- Presenting the sum of total people laid off ranked by year
+WITH Company_Year AS 
+(
+  SELECT 
+	company, 
+	EXTRACT(YEAR FROM date) AS years, 
+	SUM(total_laid_off) AS total_laid_off
+  FROM 
+	layoffs
+  GROUP BY 
+	company, 
+	EXTRACT(YEAR FROM date)
+)
+, Company_Year_Rank AS (
+  SELECT 
+	company, 
+	years, 
+	total_laid_off, 
+	DENSE_RANK() OVER (PARTITION BY years ORDER BY total_laid_off DESC) AS ranking
+  FROM 
+	Company_Year
+)
+SELECT 
+	company, 
+	years, 
+	total_laid_off, 
+	ranking
+FROM 
+	Company_Year_Rank
+WHERE 
+	ranking <= 3
+AND years IS NOT NULL
+ORDER BY 
+	years ASC, 
+	total_laid_off DESC;
+
+--Creating backup table
+CREATE TABLE layoffs_backup AS SELECT * FROM layoffs;
+
+--Deleting duplicate values
+
+WITH CTE AS 
+( SELECT *,
+	    ROW_NUMBER() OVER (PARTITION BY company, location, industry, total_laid_off, percentage_laid_off, date, stage, country, funds_raised_millions ORDER BY company, location, industry, total_laid_off, percentage_laid_off, date, stage, country, funds_raised_millions) AS row_num
+	FROM layoffs_backup
+)
+SELECT * 
+FROM 
+	CTE 
+WHERE row_num = 1;
+
+-- Setting blanks to null
+UPDATE 
+	layoffs_backup
+SET 
+	industry = NULL
+WHERE 
+	industry = '';
+
+--Removing period after country name
+
+UPDATE 
+	layoffs_backup
+SET 
+	country = TRIM(TRAILING '.' FROM country);
+
+	
+	
