@@ -2,6 +2,29 @@
 
 This portfolio showcases my SQL skills using diverse sets of datasets.
 
+#### PRODUCT MANUFACTURING ANALYSIS
+
+I used SQL to query to create a database, tables and upload data to analyze company data pertaining to product manufacturing and logistics.
+
+I calculated:
+* number of product offerings per product type
+*	total sold, revenue and availability
+*	order quantities by product type and gender
+*	defect rates by product type
+*	shipping costs by shipping carriers
+*	products with highest shipping costs and defect rates by carriers and transportation mode
+*	ranking the products based on price with product type
+
+Skincare products had 2x defect than cosmetics
+Nonbinary skincare was most ordered and haircare female was the least ordered out of people with known genders 
+
+I made extensive use of the following functions:
+*	JOINS
+*	WINDOW FUNCTIONS
+* AGGREGATE FUNCTIONS
+* CTE
+The data was obtained from Kaggle.
+
 #### COMPANY LAYOFFS PROJECTS
 
 I used SQL to query to create a database, tables and upload data to analyze company layoffs.
@@ -9,7 +32,8 @@ I used SQL to query to create a database, tables and upload data to analyze comp
 I presented layoffs by:
 * location
 *	industry
-*	stage 
+*	stage
+  
 The companies with highest percentage of layoffs were startups.
 
 I also cleaned the data by removing duplicate values and replacing blank cells by nulls.
@@ -20,7 +44,7 @@ I made extensive use of the following:
 *	COMMON TABLE EXPRESSION
 *	UPDATE
 
-The data was obtained through kaggle. 
+The data was obtained through Kaggle. 
 
 #### HOSPITAL ENCOUNTER PROJECT
 
@@ -76,6 +100,8 @@ I made extensive use of the following:
 
 
 #### REFERENCES
+
+https://www.kaggle.com/datasets/harshsingh2209/supply-chain-analysis. 06, 21, 2024
 
 https://www.kaggle.com/datasets/swaptr/layoffs-2022. 06, 21, 2024
 
