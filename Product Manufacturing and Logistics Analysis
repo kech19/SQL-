@@ -1,0 +1,172 @@
+-- CREATE DATABASE
+CREATE DATABASE supply_chain;
+
+-- CREATE TABLE
+CREATE TABLE supply_data (
+  product_type varchar(255),
+  sku varchar(255),
+  price numeric(12, 2),
+  availability int,
+  number_of_products_sold int,
+  revenue_generated numeric(12, 2),
+  customer_demographics varchar(255),
+  stock_levels integer,
+  lead_times int,
+  order_quantities bigint,
+  shipping_times int,
+  shipping_carriers varchar(255),
+  shipping_costs numeric(12, 2),
+  supplier_name varchar(255),
+  location varchar(255),
+  lead_time int,
+  production_volumes int,
+  manufacturing_lead_time int,
+  manufacturing_costs numeric(12, 2),
+  inspection_results varchar(255),
+  defect_rates numeric(7, 3),
+  transportation_modes varchar(255),
+  routes varchar(255),
+  costs numeric(12, 2)
+);
+
+--Number of products per product type
+SELECT 
+	product_type, 
+	COUNT(sku) AS count_sku
+FROM 
+	supply_data
+GROUP BY
+	product_type
+ORDER BY COUNT(sku) DESC;
+
+There were more skincare products.
+	
+--Products with their total sold, revenue and availability
+SELECT 
+	product_type,
+	SUM(number_of_products_sold) AS total_sold,
+	SUM(revenue_generated) AS total_revenue,
+	SUM(availability)  AS total_availability
+FROM 
+	supply_data
+GROUP BY 
+	product_type
+ORDER BY 
+	SUM(availability) DESC,
+	SUM(revenue_generated) DESC,
+	SUM(number_of_products_sold) DESC;
+
+Skincare placed higher on all three metrics 
+
+---Order quantities by product type and gender
+SELECT 
+	product_type, 
+	customer_demographics,
+	SUM(number_of_products_sold) AS number_of_products
+FROM 
+	supply_data
+GROUP BY 
+	product_type, 
+	customer_demographics
+ORDER BY 
+	customer_demographics DESC,
+	SUM(order_quantities) DESC;
+	
+Nonbinary skincare was most ordered and haircare female was the least ordered out of people with known genders
+
+
+---Defect rates by product type 
+SELECT 
+	product_type, 
+	SUM(defect_rates) AS total_defect
+FROM 
+	supply_data
+GROUP BY 
+	product_type
+ORDER BY
+	SUM(defect_rates) DESC;
+
+Skincare products had 2x defect than cosmetics
+	
+--Identifying shipping costs by shipping carriers
+SELECT 
+	shipping_carriers,
+	SUM(shipping_costs) AS total_shipping_cost
+FROM 
+	supply_data
+GROUP BY 
+	shipping_carriers
+ORDER BY 
+	SUM(shipping_costs) DESC; 
+
+Carrier B had the highest shipping cost.
+
+--Presenting a report of products with highest shipping costs and defect rates by carriers and transportation mode
+WITH
+  cte1 AS (
+    SELECT
+      sku,
+      shipping_carriers,
+	  SUM(costs) AS costs,
+      SUM(shipping_costs) AS total_shipping_costs
+    FROM
+      supply_data  
+    GROUP BY
+      sku,
+      shipping_carriers
+	HAVING 
+	  SUM(shipping_costs) > 5
+	ORDER BY
+	  SUM(shipping_costs) DESC,	
+	  SUM(costs) DESC
+  ),
+  cte2 AS (
+    SELECT
+      sku,
+	  transportation_modes,
+      SUM(defect_rates) AS total_defect_rates    
+    FROM
+      supply_data
+	GROUP BY
+	  sku,
+	  transportation_modes
+    HAVING
+      SUM(defect_rates) > 3.5
+	ORDER BY
+	  SUM(defect_rates) DESC
+  )
+SELECT
+  cte1.sku,
+  cte1.shipping_carriers,
+  cte1.costs,
+  cte1.total_shipping_costs,
+  cte2.transportation_modes,
+  cte2.total_defect_rates 
+FROM
+  cte1
+JOIN 
+	cte2
+ON 
+	cte1.sku = cte2.sku;
+
+17 products had defects greater than 3.5 and a shipping cost greater than 5.
+	
+--Ranking the products based on price with product type
+SELECT
+  product_type,
+  sku,
+  price,
+  ROW_NUMBER() OVER (PARTITION BY product_type
+    ORDER BY
+      Price DESC
+  ) AS row_num,
+  RANK() OVER (PARTITION BY product_type
+    ORDER BY
+      Price DESC
+  ) AS rank_num,
+  DENSE_RANK() OVER (PARTITION BY product_type
+    ORDER BY
+      Price DESC
+  ) AS dense_rank_num
+FROM
+  supply_data;
