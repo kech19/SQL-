@@ -94,6 +94,9 @@ I made extensive use of the following:
 *	WINDOW FUNCTIONS
 *	COMMON TABLE EXPRESSION
 
+###### Findings
+There was more variation in the 'Always quiet at night' question in the medium cohort in WA for example. Patients rating 9-10 ranged from 75% to low 50s. The survey response rate tend of be less than 30% and the data might fail to capture the totality of the experience during visits.
+
 #### FLU SHOT DATA PREPARATION PROJECT
 
 Using data from Synthea, I analyzed data pertaining to flu shots in a healthcare system for a dashboard that be found at the following link:
@@ -107,6 +110,8 @@ I made extensive use of the following:
 *	COMMON TABLE EXPRESSION
 *	INNER QUERIES
 
+###### Findings
+Younger than 18 and above 40s were the most vaccinated with rates above 90%. Native Americans constituted the only group with vaccination rates above 90%. As the year progressed so did the share of people vaccinated.
 
 #### REFERENCES
 
