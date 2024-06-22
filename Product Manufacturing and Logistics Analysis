@@ -1,7 +1,9 @@
 -- CREATE DATABASE
+```sql
 CREATE DATABASE supply_chain;
 
 -- CREATE TABLE
+```sql
 CREATE TABLE supply_data (
   product_type varchar(255),
   sku varchar(255),
@@ -30,6 +32,7 @@ CREATE TABLE supply_data (
 );
 
 --Number of products per product type
+```sql
 SELECT 
 	product_type, 
 	COUNT(sku) AS count_sku
@@ -42,6 +45,7 @@ ORDER BY COUNT(sku) DESC;
 There were more skincare products.
 	
 --Products with their total sold, revenue and availability
+```sql
 SELECT 
 	product_type,
 	SUM(number_of_products_sold) AS total_sold,
@@ -59,6 +63,7 @@ ORDER BY
 Skincare placed higher on all three metrics 
 
 ---Order quantities by product type and gender
+```sql
 SELECT 
 	product_type, 
 	customer_demographics,
@@ -76,6 +81,7 @@ Nonbinary skincare was most ordered and haircare female was the least ordered ou
 
 
 ---Defect rates by product type 
+```sql
 SELECT 
 	product_type, 
 	SUM(defect_rates) AS total_defect
@@ -89,6 +95,7 @@ ORDER BY
 Skincare products had 2x defect than cosmetics
 	
 --Identifying shipping costs by shipping carriers
+```sql
 SELECT 
 	shipping_carriers,
 	SUM(shipping_costs) AS total_shipping_cost
@@ -102,6 +109,7 @@ ORDER BY
 Carrier B had the highest shipping cost.
 
 --Presenting a report of products with highest shipping costs and defect rates by carriers and transportation mode
+```sql
 WITH
   cte1 AS (
     SELECT
@@ -152,6 +160,7 @@ ON
 17 products had defects greater than 3.5 and a shipping cost greater than 5.
 	
 --Ranking the products based on price with product type
+```sql
 SELECT
   product_type,
   sku,
