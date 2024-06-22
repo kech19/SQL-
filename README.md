@@ -15,6 +15,12 @@ I calculated:
 *	products with highest shipping costs and defect rates by carriers and transportation mode
 *	ranking the products based on price with product type
 
+I made extensive use of the following functions:
+*	JOINS
+*	WINDOW FUNCTIONS
+* AGGREGATE FUNCTIONS
+* CTE
+
 ###### Findings
 Skincare products had 2x defect than cosmetics.
 Nonbinary skincare was most ordered and haircare female was the least ordered out of people with known genders.
@@ -22,11 +28,6 @@ Thorough analysis of skincare products is recommended.
 Obtaining gender data on more patients will allow better customer segmenation based on gender.
 Analysis of routes taken by Carrier B, weight of products could and distance to delivery could help figure out why it had the highest shipping costs.
 
-I made extensive use of the following functions:
-*	JOINS
-*	WINDOW FUNCTIONS
-* AGGREGATE FUNCTIONS
-* CTE
 The data was obtained from Kaggle.
 
 #### COMPANY LAYOFFS PROJECTS
@@ -38,9 +39,6 @@ I presented layoffs by:
 *	industry
 *	stage
 
-###### Findings
-The companies with highest percentage of layoffs were startups. Recommended to apply to more established companies to decrease the probability of being laid off.
-
 I also cleaned the data by removing duplicate values and replacing blank cells by nulls.
 
 I made extensive use of the following:
@@ -48,6 +46,9 @@ I made extensive use of the following:
 * TRIM
 *	COMMON TABLE EXPRESSION
 *	UPDATE
+
+###### Findings
+The companies with highest percentage of layoffs were startups. Recommended to apply to more established companies to decrease the probability of being laid off.
 
 The data was obtained through Kaggle. 
 
@@ -64,15 +65,15 @@ I used SQL queries to analyze the data and returned the following:
 *	average payer coverage by race
 *	total claim by zip code
 
-###### Findings
-A lot of patients fell under the outpatient category. One of the most common reasons for visits were mental health disturbances. These patients could be linked to great local resources to prevent emergency visit to the hospital instead of going to a crisis center.
-
 I made extensive use of the following functions:
 *	JOINS
 *	INNER QUERIES
 *	WINDOW FUNCTIONS
 * AGGREGATE FUNCTIONS
 *	SET OPERATORS
+
+###### Findings
+A lot of patients fell under the outpatient category. One of the most common reasons for visits were mental health disturbances. These patients could be linked to great local resources to prevent emergency visit to the hospital instead of going to a crisis center.
 
 #### HCAHPS PATIENT SATISFACTION DATA CLEANING PROJECT
 
