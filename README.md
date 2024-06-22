@@ -15,7 +15,7 @@ I calculated:
 *	products with highest shipping costs and defect rates by carriers and transportation mode
 *	ranking the products based on price with product type
 
-######## Findings
+########## Findings
 Skincare products had 2x defect than cosmetics.
 Nonbinary skincare was most ordered and haircare female was the least ordered out of people with known genders.
 Thorough analysis of skincare products is recommended.
