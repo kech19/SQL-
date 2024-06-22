@@ -15,7 +15,7 @@ I calculated:
 *	products with highest shipping costs and defect rates by carriers and transportation mode
 *	ranking the products based on price with product type
 
-########## Findings
+###### Findings
 Skincare products had 2x defect than cosmetics.
 Nonbinary skincare was most ordered and haircare female was the least ordered out of people with known genders.
 Thorough analysis of skincare products is recommended.
@@ -38,7 +38,7 @@ I presented layoffs by:
 *	industry
 *	stage
 
-######## Findings
+###### Findings
 The companies with highest percentage of layoffs were startups. Recommended to apply to more established companies to decrease the probability of being laid off.
 
 I also cleaned the data by removing duplicate values and replacing blank cells by nulls.
@@ -64,7 +64,7 @@ I used SQL queries to analyze the data and returned the following:
 *	average payer coverage by race
 *	total claim by zip code
 
-######## Findings
+###### Findings
 A lot of patients fell under the outpatient category. One of the most common reasons for visits were mental health disturbances. These patients could be linked to great local resources to prevent emergency visit to the hospital instead of going to a crisis center.
 
 I made extensive use of the following functions:
